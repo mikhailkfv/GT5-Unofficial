@@ -51,6 +51,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -82,7 +83,8 @@ public class GT_ModHandler {
     public static volatile int VERSION = 509;
     public static Collection<String> sNativeRecipeClasses = new HashSet<String>(), sSpecialRecipeClasses = new HashSet<String>();
     public static GT_HashSet<GT_ItemStack> sNonReplaceableItems = new GT_HashSet<GT_ItemStack>();
-    public static Object sBoxableWrapper = GT_Utility.callConstructor("gregtechmod.api.util.GT_IBoxableWrapper", 0, null, false);
+    public static Object sBoxableWrapper = new GT_IBoxableWrapper();
+    public static Collection<GT_ItemStack> sBoxableItems = new ArrayList<>();
     private static Map<IRecipeInput, RecipeOutput> sExtractorRecipes = new /*Concurrent*/HashMap<IRecipeInput, RecipeOutput>();
     private static Map<IRecipeInput, RecipeOutput> sMaceratorRecipes = new /*Concurrent*/HashMap<IRecipeInput, RecipeOutput>();
     private static Map<IRecipeInput, RecipeOutput> sCompressorRecipes = new /*Concurrent*/HashMap<IRecipeInput, RecipeOutput>();
@@ -1810,47 +1812,68 @@ public class GT_ModHandler {
     /**
      * Uses a Soldering Iron
      */
-    public static boolean useSolderingIron(ItemStack aStack, EntityLivingBase aPlayer) {
-        if (aPlayer == null || aStack == null) return false;
-        if (GT_Utility.isStackInList(aStack, GregTech_API.sSolderingToolList)) {
-            if (aPlayer instanceof EntityPlayer) {
-                EntityPlayer tPlayer = (EntityPlayer) aPlayer;
-                if (tPlayer.capabilities.isCreativeMode) return true;
-                if (isElectricItem(aStack) && ic2.api.item.ElectricItem.manager.getCharge(aStack) > 1000.0d) {
-                    if (consumeSolderingMaterial(tPlayer)) {
-                    	if (canUseElectricItem(aStack, 10000)) {
-                            return GT_ModHandler.useElectricItem(aStack, 10000, (EntityPlayer) aPlayer);
+    public static boolean useSolderingIron(ItemStack aStack, EntityLivingBase aPlayer, IInventory aExternalInventory) {
+    	if (aPlayer == null || aStack == null) return false;
+    	if (GT_Utility.isStackInList(aStack, GregTech_API.sSolderingToolList)) {
+    		if (aPlayer instanceof EntityPlayer) {
+    			EntityPlayer tPlayer = (EntityPlayer) aPlayer;
+    			if (tPlayer.capabilities.isCreativeMode) return true;
+    			if (isElectricItem(aStack) && ic2.api.item.ElectricItem.manager.getCharge(aStack) > 1000.0d) {
+    				if (consumeSolderingMaterial(tPlayer)
+    						|| (aExternalInventory != null && consumeSolderingMaterial(aExternalInventory))) {
+                        	if (canUseElectricItem(aStack, 10000)) {
+                        		return GT_ModHandler.useElectricItem(aStack, 10000, (EntityPlayer) aPlayer);
+                        	}
+                        	GT_ModHandler.useElectricItem(aStack, (int) ic2.api.item.ElectricItem.manager.getCharge(aStack), (EntityPlayer) aPlayer);
+                            return false;
                         }
-                        GT_ModHandler.useElectricItem(aStack, (int) ic2.api.item.ElectricItem.manager.getCharge(aStack), (EntityPlayer) aPlayer);
-                        return false;
-                    }
+                   	}
+                }else {
+                	damageOrDechargeItem(aStack, 1, 1000, aPlayer);
+                	return true;
                 }
-            } else {
-                damageOrDechargeItem(aStack, 1, 1000, aPlayer);
-                return true;
             }
+            return false;
         }
-        return false;
-    }
 
     /**
      * Simply consumes some soldering material
      */
+    public static boolean useSolderingIron(ItemStack aStack, EntityLivingBase aPlayer) {
+        return useSolderingIron(aStack, aPlayer, null);
+    }
+
     public static boolean consumeSolderingMaterial(EntityPlayer aPlayer) {
     	if (aPlayer.capabilities.isCreativeMode) return true;
-        for (int i = 0; i < aPlayer.inventory.mainInventory.length; i++) {
-            if (GT_Utility.isStackInList(aPlayer.inventory.mainInventory[i], GregTech_API.sSolderingMetalList)) {
-                if (aPlayer.inventory.mainInventory[i].stackSize < 1) return false;
-                if (aPlayer.inventory.mainInventory[i].stackSize == 1) {
-                    aPlayer.inventory.mainInventory[i] = null;
+    	if (consumeSolderingMaterial(aPlayer.inventory)) {
+            if (aPlayer.inventoryContainer != null) {
+                aPlayer.inventoryContainer.detectAndSendChanges();
+            }
+            return true;
+        }
+        return false;
+    }
+  
+    /**
+     * Consumes soldering material from given inventory
+     */
+
+    public static boolean consumeSolderingMaterial(IInventory aInventory) {
+        for (int i = 0; i < aInventory.getSizeInventory(); i++) {
+            ItemStack tStack = aInventory.getStackInSlot(i);
+            if (GT_Utility.isStackInList(tStack, GregTech_API.sSolderingMetalList)) {
+                if (tStack.stackSize < 1) return false;
+                if (tStack.stackSize == 1) {
+                    tStack = null;
                 } else {
-                    aPlayer.inventory.mainInventory[i].stackSize--;
+                    tStack.stackSize--;
                 }
-                if (aPlayer.inventoryContainer != null) aPlayer.inventoryContainer.detectAndSendChanges();
+                aInventory.setInventorySlotContents(i, tStack);
+                aInventory.markDirty();
                 return true;
             }
         }
-    	return false;
+        return false;
     }
 
     /**
@@ -1882,8 +1905,17 @@ public class GT_ModHandler {
         return false;
     }
 
+
+    /**
+     * Allow item to be inserted into ic2 toolbox
+     */
     public static void registerBoxableItemToToolBox(ItemStack aStack) {
-        if (aStack != null) registerBoxableItemToToolBox(aStack.getItem());
+    	if (aStack != null) {
+            try {
+                ic2.api.item.ItemWrapper.registerBoxable(aStack.getItem(), (IBoxable) sBoxableWrapper);
+            } catch (Throwable ignored) {/*Do nothing*/}
+            sBoxableItems.add(new GT_ItemStack(aStack));
+        }
     }
 
     public static void registerBoxableItemToToolBox(Item aItem) {

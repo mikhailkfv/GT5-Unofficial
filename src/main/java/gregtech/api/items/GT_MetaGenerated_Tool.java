@@ -78,7 +78,6 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
      */
     public GT_MetaGenerated_Tool(String aUnlocalized) {
         super(aUnlocalized);
-        GT_ModHandler.registerBoxableItemToToolBox(this);
         setCreativeTab(GregTech_API.TAB_GREGTECH);
         setMaxStackSize(1);
         sInstances.put(getUnlocalizedName(), this);
@@ -166,6 +165,7 @@ public abstract class GT_MetaGenerated_Tool extends GT_MetaBase_Item implements 
             }
             if (GregTech_API.sThaumcraftCompat != null)
                 GregTech_API.sThaumcraftCompat.registerThaumcraftAspectsToItem(rStack, tAspects, false);
+            GT_ModHandler.registerBoxableItemToToolBox(rStack);
             return rStack;
         }
         return null;

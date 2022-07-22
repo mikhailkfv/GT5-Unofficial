@@ -17,14 +17,22 @@ import gregtech.api.objects.GT_RenderedTexture;
 import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Utility;
+import ic2.core.IHasGui;
+import ic2.core.Ic2Items;
+import ic2.core.item.ItemToolbox;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.FakePlayer;
+
+import com.mojang.authlib.GameProfile;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class GT_MetaTileEntity_Hatch_Maintenance extends GT_MetaTileEntity_Hatch {
@@ -110,12 +118,22 @@ public class GT_MetaTileEntity_Hatch_Maintenance extends GT_MetaTileEntity_Hatch
     }
 
     @Override
+
     public boolean onRightclick(IGregTechTileEntity aBaseMetaTileEntity, EntityPlayer aPlayer, byte aSide, float aX, float aY, float aZ) {
-        if (aBaseMetaTileEntity.isClientSide()) return true;
-        if (aSide == aBaseMetaTileEntity.getFrontFacing()) aBaseMetaTileEntity.openGUI(aPlayer);
+        if (aBaseMetaTileEntity.isClientSide())
+            return true;
+        if (aSide == aBaseMetaTileEntity.getFrontFacing()) {
+            // only allow OC robot fake player
+            if (aPlayer instanceof FakePlayer && !aPlayer.getGameProfile().getName().endsWith(".robot"))
+                return true;
+            if (aPlayer.getCurrentEquippedItem() != null && aPlayer.getCurrentEquippedItem().getItem() instanceof ItemToolbox)
+                applyToolbox(aPlayer.getCurrentEquippedItem(), aPlayer);
+            else
+                aBaseMetaTileEntity.openGUI(aPlayer);
+        }
         return true;
     }
-
+    
     @Override
     public Object getServerGUI(int aID, InventoryPlayer aPlayerInventory, IGregTechTileEntity aBaseMetaTileEntity) {
         if (mAuto) return new GT_Container_2by2(aPlayerInventory, aBaseMetaTileEntity);
@@ -185,19 +203,24 @@ public class GT_MetaTileEntity_Hatch_Maintenance extends GT_MetaTileEntity_Hatch
         return false;
     }
 
-    public void onToolClick(ItemStack aStack, EntityLivingBase aPlayer) {
+    public void onToolClick(ItemStack aStack, EntityLivingBase aPlayer, IInventory aToolboxInventory) {
         if (aStack == null || aPlayer == null) return;
-        if (GT_Utility.isStackInList(aStack, GregTech_API.sWrenchList) && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
+        if (aStack.getItem() instanceof ItemToolbox && aPlayer instanceof EntityPlayer) {
+            applyToolbox(aStack, (EntityPlayer)aPlayer);
+            return;        
+        }
+        if (GT_Utility.isStackInList(aStack, GregTech_API.sWrenchList) && !mWrench && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
             mWrench = true;
-        if (GT_Utility.isStackInList(aStack, GregTech_API.sScrewdriverList) && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
+        if (GT_Utility.isStackInList(aStack, GregTech_API.sScrewdriverList) && !mScrewdriver && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
             mScrewdriver = true;
-        if (GT_Utility.isStackInList(aStack, GregTech_API.sSoftHammerList) && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
+        if (GT_Utility.isStackInList(aStack, GregTech_API.sSoftHammerList) && !mSoftHammer && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
             mSoftHammer = true;
-        if (GT_Utility.isStackInList(aStack, GregTech_API.sHardHammerList) && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
+        if (GT_Utility.isStackInList(aStack, GregTech_API.sHardHammerList) && !mHardHammer && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
             mHardHammer = true;
-        if (GT_Utility.isStackInList(aStack, GregTech_API.sCrowbarList) && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
+        if (GT_Utility.isStackInList(aStack, GregTech_API.sCrowbarList) && !mCrowbar && GT_ModHandler.damageOrDechargeItem(aStack, 1, 1000, aPlayer))
             mCrowbar = true;
-        if (GT_ModHandler.useSolderingIron(aStack, aPlayer)) mSolderingTool = true;
+        if (!mSolderingTool && GT_ModHandler.useSolderingIron(aStack, aPlayer, aToolboxInventory))
+            mSolderingTool = true;
         if (GT_OreDictUnificator.isItemStackInstanceOf(aStack, "craftingDuctTape")) {
             mWrench = mScrewdriver = mSoftHammer = mHardHammer = mCrowbar = mSolderingTool = true;
             getBaseMetaTileEntity().setActive(false);
@@ -210,6 +233,18 @@ public class GT_MetaTileEntity_Hatch_Maintenance extends GT_MetaTileEntity_Hatch
             } catch (Exception ignored) {
             }
         }
+    }
+    
+
+    public void onToolClick(ItemStack aStack, EntityLivingBase aPlayer) {
+        onToolClick(aStack, aPlayer, null);
+    }
+    
+    private void applyToolbox(ItemStack aStack, EntityPlayer aPlayer) {
+        ItemToolbox aToolbox = (ItemToolbox) aStack.getItem();
+        IHasGui aToolboxGUI = aToolbox.getInventory(aPlayer, aStack);
+        for (int i=0; i<aToolboxGUI.getSizeInventory(); i++)
+        	onToolClick(aToolboxGUI.getStackInSlot(i), aPlayer, aToolboxGUI);
     }
 
     @Override
