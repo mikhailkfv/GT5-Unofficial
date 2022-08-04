@@ -18,7 +18,6 @@ import gregtech.api.util.GT_ModHandler;
 import gregtech.api.util.GT_OreDictUnificator;
 import gregtech.api.util.GT_Utility;
 import ic2.core.IHasGui;
-import ic2.core.Ic2Items;
 import ic2.core.item.ItemToolbox;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,10 +28,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.FakePlayer;
 
-import com.mojang.authlib.GameProfile;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 public class GT_MetaTileEntity_Hatch_Maintenance extends GT_MetaTileEntity_Hatch {
