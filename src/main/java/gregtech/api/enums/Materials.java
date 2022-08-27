@@ -536,6 +536,7 @@ public class Materials implements IColorModulationContainer, ISubTagContainer {
     public static Materials LightFuel = new Materials(740, TextureSet.SET_FLUID, 		1.0F, 0, 0, 16, 255, 255, 0, 0, "LightFuel", "Light Fuel", 0, 256, -1, 0, false, false, 1, 1, 1, Dyes.dyeYellow).setCanBeCracked(true);
     public static Materials HeavyFuel = new Materials(741, TextureSet.SET_FLUID, 		1.0F, 0, 0, 16, 255, 255, 0, 0, "HeavyFuel", "Heavy Fuel", 3, 192, -1, 0, false, false, 1, 1, 1, Dyes.dyeBlack).setCanBeCracked(true);
     public static Materials LPG = new Materials(742, TextureSet.SET_FLUID, 				1.0F, 0, 0, 16, 255, 255, 0, 0, "LPG", "LPG", 1, 256, -1, 0, false, false, 1, 1, 1, Dyes.dyeYellow);
+    public static Materials Kerosene = new Materials(743, TextureSet.SET_FLUID,			1.0F, 0, 0, 16, 0, 255, 255, 0, "Kerosene", "Kerosene", 0, 256, -1, 0, false, false, 1, 1, 1, Dyes.dyeBlue).setCanBeCracked(true);
 
     public static Materials Chlorobenzene = new MaterialBuilder(605, TextureSet.SET_FLUID, "Chlorobenzene").addCell().addFluid().setRGB(0, 50, 65).setColor(Dyes.dyeGray).setMaterialList(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 5), new MaterialStack(Chlorine, 1)).addElectrolyzerRecipe().constructMaterial();
     public static Materials DilutedHydrochloricAcid = new MaterialBuilder(606, TextureSet.SET_FLUID, "Diluted Hydrochloric Acid").setName("DilutedHydrochloricAcid_GT5U").addCell().addFluid().setRGB(153, 167, 163).setColor(Dyes.dyeLightGray).setMaterialList(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1)).constructMaterial();
@@ -751,6 +752,10 @@ public class Materials implements IColorModulationContainer, ISubTagContainer {
     public static Materials AntiKnock = new MaterialBuilder(994, TextureSet.SET_FLUID, "Ethyl Tert-Butyl Ether").addCell().addFluid().setRGB(255, 255, 255).setColor(Dyes.dyeWhite).constructMaterial();
     public static Materials GasolineRegular = new MaterialBuilder(997, TextureSet.SET_FLUID, "Gasoline").addCell().addFluid().setRGB(255,165,0).setColor(Dyes.dyeOrange).setFuelType(MaterialBuilder.DIESEL).setFuelPower(384).constructMaterial();
     public static Materials GasolinePremium = new MaterialBuilder(998, TextureSet.SET_FLUID, "High Octane Gasoline").addCell().addFluid().setRGB(255,165,0).setColor(Dyes.dyeOrange).setFuelType(MaterialBuilder.DIESEL).setFuelPower(768).constructMaterial();
+    //new materials
+    //public static Materials Kerosene = new MaterialBuilder(743, TextureSet.SET_FLUID, "Kerosene").addCell().addFluid().setRGB(0,255,255).setColor(Dyes.dyeBlue).setFuelType(MaterialBuilder.DIESEL).setFuelPower(256).constructMaterial();
+    public static Materials JetFuel = new MaterialBuilder(744, TextureSet.SET_FLUID, "Jet Kerosene").addCell().addFluid().setRGB(70, 200, 255).setColor(Dyes.dyeYellow).setFuelType(MaterialBuilder.JET).setFuelPower(512).constructMaterial();
+    public static Materials Jet8 = new MaterialBuilder(745, TextureSet.SET_FLUID, "JP-8").addCell().addFluid().setRGB(235, 235, 200).setColor(Dyes.dyeYellow).setFuelType(MaterialBuilder.JET).setFuelPower(640).constructMaterial();
     
     /**
      * Materials which are renamed automatically

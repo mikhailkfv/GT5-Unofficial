@@ -726,10 +726,10 @@ public class GT_MachineRecipeLoader implements Runnable {
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Electric_Motor_IV.get(1L), GT_OreDictUnificator.get(OrePrefixes.ring, Materials.Silicone, 2), GT_OreDictUnificator.get(OrePrefixes.rotor, Materials.TungstenSteel, 1), GT_OreDictUnificator.get(OrePrefixes.screw, Materials.TungstenSteel, 1), GT_OreDictUnificator.get(OrePrefixes.cableGt01, Materials.Tungsten, 1), GT_OreDictUnificator.get(OrePrefixes.pipeMedium, Materials.TungstenSteel, 1)}, GT_Values.NF, ItemList.Electric_Pump_IV.get(1L), 20, 480);
         GT_Values.RA.addAssemblerRecipe(new ItemStack[]{ItemList.Electric_Motor_IV.get(1L), GT_OreDictUnificator.get(OrePrefixes.ring, Materials.StyreneButadieneRubber, 2), GT_OreDictUnificator.get(OrePrefixes.rotor, Materials.TungstenSteel, 1), GT_OreDictUnificator.get(OrePrefixes.screw, Materials.TungstenSteel, 1), GT_OreDictUnificator.get(OrePrefixes.cableGt01, Materials.Tungsten, 1), GT_OreDictUnificator.get(OrePrefixes.pipeMedium, Materials.TungstenSteel, 1)}, GT_Values.NF, ItemList.Electric_Pump_IV.get(1L), 20, 480);
 
-        GT_Values.RA.addUniversalDistillationRecipe(Materials.OilLight.getFluid(150), new FluidStack[]{ Materials.SulfuricHeavyFuel.getFluid(10),  Materials.SulfuricLightFuel.getFluid(20), Materials.SulfuricNaphtha.getFluid(30), Materials.SulfuricGas.getGas(240)}, null, 20, 96);
-        GT_Values.RA.addUniversalDistillationRecipe(Materials.OilMedium.getFluid(100), new FluidStack[]{Materials.SulfuricHeavyFuel.getFluid(15),  Materials.SulfuricLightFuel.getFluid(50), Materials.SulfuricNaphtha.getFluid(20), Materials.SulfuricGas.getGas(60)}, null, 20, 96);
-        GT_Values.RA.addUniversalDistillationRecipe(Materials.Oil.getFluid(50L), new FluidStack[]{      Materials.SulfuricHeavyFuel.getFluid(15),  Materials.SulfuricLightFuel.getFluid(50), Materials.SulfuricNaphtha.getFluid(20), Materials.SulfuricGas.getGas(60)}, null, 20, 96);
-        GT_Values.RA.addUniversalDistillationRecipe(Materials.OilHeavy.getFluid(100), new FluidStack[]{ Materials.SulfuricHeavyFuel.getFluid(250), Materials.SulfuricLightFuel.getFluid(45), Materials.SulfuricNaphtha.getFluid(15), Materials.SulfuricGas.getGas(60)}, null, 20, 288);
+        GT_Values.RA.addUniversalDistillationRecipe(Materials.OilLight.getFluid(150), new FluidStack[]{ Materials.SulfuricHeavyFuel.getFluid(10),  Materials.SulfuricLightFuel.getFluid(20), Materials.Kerosene.getFluid(30), Materials.SulfuricNaphtha.getFluid(30), Materials.SulfuricGas.getGas(240)}, null, 20, 96);
+        GT_Values.RA.addUniversalDistillationRecipe(Materials.OilMedium.getFluid(100), new FluidStack[]{Materials.SulfuricHeavyFuel.getFluid(15),  Materials.SulfuricLightFuel.getFluid(50), Materials.Kerosene.getFluid(25), Materials.SulfuricNaphtha.getFluid(20), Materials.SulfuricGas.getGas(60)}, null, 20, 96);
+        GT_Values.RA.addUniversalDistillationRecipe(Materials.Oil.getFluid(50L), new FluidStack[]{      Materials.SulfuricHeavyFuel.getFluid(15),  Materials.SulfuricLightFuel.getFluid(50), Materials.Kerosene.getFluid(25), Materials.SulfuricNaphtha.getFluid(20), Materials.SulfuricGas.getGas(60)}, null, 20, 96);
+        GT_Values.RA.addUniversalDistillationRecipe(Materials.OilHeavy.getFluid(100), new FluidStack[]{ Materials.SulfuricHeavyFuel.getFluid(250), Materials.SulfuricLightFuel.getFluid(45), Materials.Kerosene.getFluid(10), Materials.SulfuricNaphtha.getFluid(15), Materials.SulfuricGas.getGas(60)}, null, 20, 288);
 
         if (GregTech_API.sSpecialFile.get("general", "EnableLagencyOilGalactiCraft", false) && FluidRegistry.getFluid("oilgc") != null) {
             GT_Values.RA.addUniversalDistillationRecipe(new FluidStack(FluidRegistry.getFluid("oilgc"), 50), new FluidStack[]{Materials.SulfuricHeavyFuel.getFluid(15), Materials.SulfuricLightFuel.getFluid(50), Materials.SulfuricNaphtha.getFluid(20), Materials.SulfuricGas.getGas(60)}, null, 20, 96);
@@ -3427,7 +3427,15 @@ public class GT_MachineRecipeLoader implements Runnable {
                 new FluidStack[]{Materials.HeavyFuel.getFluid(100), Materials.Naphtha.getFluid(100), Materials.Toluene.getFluid(150), Materials.Benzene.getFluid(300), Materials.Butadiene.getGas(300),
                         Materials.Propene.getGas(450), Materials.Ethylene.getGas(450), Materials.Methane.getGas(450)},
                 Materials.Carbon.getDustSmall(1), 120, 120);
-
+        
+        GT_Values.RA.addDistillationTowerRecipe(Materials.Kerosene.getSteamCracked(1000), 
+        		new FluidStack[] {Materials.Ethylene.getGas(200), Materials.Propene.getGas(100), Materials.Hydrogen.getGas(200), Materials.Methane.getGas(300),
+        				Materials.CarbonMonoxide.getGas(200)}, 
+        		Materials.Carbon.getDustSmall(1), 120, 120);
+        GT_Values.RA.addDistillationTowerRecipe(Materials.Kerosene.getHydroCracked(1000), 
+        		new FluidStack[] {Materials.JetFuel.getFluid(700), Materials.Methane.getGas(200), Materials.CarbonMonoxide.getGas(100)}, 
+        		Materials.Carbon.getDustSmall(1), 120, 120);
+        
 
         GT_Values.RA.addDistillationTowerRecipe(Materials.HeavyFuel.getHydroCracked(1000),
                 new FluidStack[]{Materials.LightFuel.getFluid(800), Materials.Naphtha.getFluid(400), Materials.Butane.getGas(100), Materials.Propane.getGas(100), Materials.Ethane.getGas(75), Materials.Methane.getGas(75)},
@@ -3446,6 +3454,9 @@ public class GT_MachineRecipeLoader implements Runnable {
         GT_Values.RA.addChemicalRecipe(Materials.Ethanol.getCells(1), Materials.Butene.getCells(1), GT_Values.NF, GT_Values.NF, Materials.AntiKnock.getCells(2), 400, 480);
         GT_Values.RA.addMixerRecipe(Materials.Naphtha.getCells(16), Materials.Toluene.getCells(2), Materials.Methanol.getCells(1), (GT_Mod.gregtechproxy.mMoreComplicatedChemicalRecipes ? Materials.Acetone : Materials.AceticAcid).getCells(1), GT_Values.NF, GT_Values.NF, Materials.GasolineRegular.getCells(20), 200, 120);
         GT_Values.RA.addMixerRecipe(Materials.GasolineRegular.getCells(20), Materials.AntiKnock.getCells(3), Materials.NitrousOxide.getCells(6), Materials.Toluene.getCells(1), GT_Values.NF, GT_Values.NF, Materials.GasolinePremium.getCells(30), 200, 120);
+        
+        //JP-8
+        GT_Values.RA.addMixerRecipe(Materials.JetFuel.getCells(6), Materials.Naphtha.getCells(2), Materials.Ethane.getCells(1), GT_Values.NI, GT_Values.NF, GT_Values.NF, Materials.Jet8.getCells(9), 200, 512);
     }
 
     public void addPotionRecipes(String aName,ItemStack aItem){
