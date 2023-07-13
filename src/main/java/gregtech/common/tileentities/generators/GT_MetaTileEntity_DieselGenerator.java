@@ -56,7 +56,7 @@ public class GT_MetaTileEntity_DieselGenerator
     }
 
     public void onConfigLoad() {
-        this.mEfficiency = GregTech_API.sMachineFile.get(ConfigCategories.machineconfig, "DieselGenerator.efficiency.tier." + this.mTier, (90 - this.mTier * 5));
+        this.mEfficiency = GregTech_API.sMachineFile.get(ConfigCategories.machineconfig, "DieselGenerator.efficiency.tier." + this.mTier, (100 - this.mTier * 5));
     }
 
     public int getEfficiency() {

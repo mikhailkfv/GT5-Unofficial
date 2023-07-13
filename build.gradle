@@ -2,10 +2,10 @@ buildscript {
     repositories {
         mavenCentral()
 		jcenter()	
-        //maven {
-        //    name = "forge"
-        //    url = "http://files.minecraftforge.net/maven"
-        //}
+        maven {
+            name = "forge"
+            url = "https://maven.minecraftforge.net"
+        }
 		maven {
 			name = "gt"
 			url = "https://gregtech.overminddl1.com/"
@@ -16,7 +16,9 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+	classpath ('com.anatawa12.forge:ForgeGradle:1.2-1.0.+') {
+		changing = true
+	}
     }
 }
 
@@ -78,27 +80,33 @@ configurations {
 repositories {
 	maven {
 		name = "gt"
-		url = "http://gregtech.overminddl1.com/"
+		url = "https://gregtech.overminddl1.com/"
 	}
 	maven {
 		name = "ic2"
-		url = "http://maven.ic2.player.to/"
+		url = "https://maven.ic2.player.to/"
 	}
+	maven {
+		name = "k4u"
+		url = "https://maven.k-4u.nl/"
+	}
+	maven {
+		name = "local"
+		url = "file:///C:/Users/michael/Documents/GT5-Unofficial/maven/"
+    }
 }
 
 dependencies {
 //    compile fileTree(dir: 'libs', include: '*.jar')
 
-	// Mostly Used for compileOnly, if you prefer normal IC2, uncomment it instead.
    	provided "net.industrial-craft:industrialcraft-2:${config.ic2.version}:dev" 
     
-	compile "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10:dev"
-	compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
-	compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
-	compile "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
+	compileOnly "mcp.mobius.waila:Waila:1.5.11-RC2-NONEI_1.7.10"
+	//compile "codechicken:CodeChickenLib:1.7.10-1.1.3.140:dev"
+	//compile "codechicken:CodeChickenCore:1.7.10-1.0.7.47:dev"
+	//compile "codechicken:NotEnoughItems:1.7.10-1.0.5.120:dev"
 	
 	compileOnly "com.enderio.core:EnderCore:1.7.10-0.2.0.39_beta:dev"
-	// "com.enderio:EnderIO:1.7.10-2.3.0.429_beta:dev"  
 	compileOnly "com.enderio:EnderIO:1.7.10-2.3.0.430_beta:dev"
 	
 	compileOnly "cofh:CoFHCore:1.7.10R3.0.4:dev"
@@ -110,11 +118,13 @@ dependencies {
 	compileOnly "micdoodle8.mods:GalacticraftCore:1.7-3.0.12.504:Dev"
 	compileOnly "micdoodle8.mods:MicdoodleCore:1.7-3.0.12.504:Dev"
 	
-	compileOnly "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"	
+	compileOnly "thaumcraft:Thaumcraft:1.7.10-4.2.3.5:dev"
 	compileOnly "com.azanor.baubles:Baubles:1.7.10-1.0.1.10:deobf"	
 	compileOnly "appeng:appliedenergistics2:rv3-beta-6:dev"	
 	compileOnly "applecore:AppleCore:1.7.10-3.1.1:deobf"
 	compileOnly "com.shedar.IC2NuclearControl:IC2NuclearControl:2.4.3a:dev"
+
+	compileOnly "pneumaticCraft:PneumaticCraft-1.7.10:1.12.7-152:userdev"
     
 }
 

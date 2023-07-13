@@ -1144,13 +1144,15 @@ public class GT_Loader_MetaTileEntities implements Runnable {
         GT_ModHandler.addCraftingRecipe(ItemList.Generator_Gas_Turbine_MV.get(1L, new Object[0]), bitsd, new Object[]{"CRC", "RMR", aTextMotorWire, 'M', ItemList.Hull_MV, 'E', ItemList.Electric_Motor_MV, 'R', OrePrefixes.rotor.get(Materials.Bronze), 'C', OrePrefixes.circuit.get(Materials.Good), 'W', OrePrefixes.cableGt01.get(Materials.Copper)});
         GT_ModHandler.addCraftingRecipe(ItemList.Generator_Gas_Turbine_HV.get(1L, new Object[0]), bitsd, new Object[]{"CRC", "RMR", aTextMotorWire, 'M', ItemList.Hull_HV, 'E', ItemList.Electric_Motor_HV, 'R', OrePrefixes.rotor.get(Materials.Steel), 'C', OrePrefixes.circuit.get(Materials.Advanced), 'W', OrePrefixes.cableGt01.get(Materials.Gold)});
         
-        ItemList.Generator_Jet_Turbine_HV.set(new GT_MetaTileEntity_JetTurbine(1254, "basicgenerator.jetturbine.tier.03", "Modern Jet Turbine", 3).getStackForm(1L));
-        ItemList.Generator_Jet_Turbine_EV.set(new GT_MetaTileEntity_JetTurbine(1255, "basicgenerator.jetturbine.tier.04", "Improved Jet Turbine", 4).getStackForm(1L));
-        ItemList.Generator_Jet_Turbine_IV.set(new GT_MetaTileEntity_JetTurbine(1256, "basicgenerator.jetturbine.tier.05", "Hi-Bypass Jet Turbine", 5).getStackForm(1L));
+        ItemList.Generator_Jet_Turbine_MV.set(new GT_MetaTileEntity_JetTurbine(1254, "basicgenerator.jetturbine.tier.02", "Advanced Jet Turbine", 2).getStackForm(1L));
+        ItemList.Generator_Jet_Turbine_HV.set(new GT_MetaTileEntity_JetTurbine(1255, "basicgenerator.jetturbine.tier.03", "Modern Jet Turbine", 3).getStackForm(1L));
+        ItemList.Generator_Jet_Turbine_EV.set(new GT_MetaTileEntity_JetTurbine(1256, "basicgenerator.jetturbine.tier.04", "Improved Jet Turbine", 4).getStackForm(1L));
+        //ItemList.Generator_Jet_Turbine_IV.set(new GT_MetaTileEntity_JetTurbine(1257, "basicgenerator.jetturbine.tier.05", "Hi-Bypass Jet Turbine", 5).getStackForm(1L));
         
+        GT_ModHandler.addCraftingRecipe(ItemList.Generator_Jet_Turbine_MV.get(1L, new Object[0]), bitsd, new Object[]{"CRC", "RMR", aTextMotorWire, 'M', ItemList.Hull_MV, 'E', ItemList.Electric_Motor_MV, 'R', OrePrefixes.rotor.get(Materials.Steel), 'C', OrePrefixes.circuit.get(Materials.Good), 'W', OrePrefixes.cableGt01.get(Materials.Copper)});
         GT_ModHandler.addCraftingRecipe(ItemList.Generator_Jet_Turbine_HV.get(1L, new Object[0]), bitsd, new Object[]{"CRC", "RMR", aTextMotorWire, 'M', ItemList.Hull_HV, 'E', ItemList.Electric_Motor_HV, 'R', OrePrefixes.rotor.get(Materials.StainlessSteel), 'C', OrePrefixes.circuit.get(Materials.Advanced), 'W', OrePrefixes.cableGt01.get(Materials.Gold)});
         GT_ModHandler.addCraftingRecipe(ItemList.Generator_Jet_Turbine_EV.get(1L, new Object[0]), bitsd, new Object[]{"CRC", "RMR", aTextMotorWire, 'M', ItemList.Hull_EV, 'E', ItemList.Electric_Motor_EV, 'R', OrePrefixes.rotor.get(Materials.Titanium), 'C', OrePrefixes.circuit.get(Materials.Data), 'W', OrePrefixes.cableGt01.get(Materials.Aluminium)});
-        GT_ModHandler.addCraftingRecipe(ItemList.Generator_Jet_Turbine_IV.get(1L, new Object[0]), bitsd, new Object[]{"CRC", "RMR", aTextMotorWire, 'M', ItemList.Hull_IV, 'E', ItemList.Electric_Motor_IV, 'R', OrePrefixes.rotor.get(Materials.TungstenSteel), 'C', OrePrefixes.circuit.get(Materials.Elite), 'W', OrePrefixes.cableGt01.get(Materials.Platinum)});
+        //GT_ModHandler.addCraftingRecipe(ItemList.Generator_Jet_Turbine_IV.get(1L, new Object[0]), bitsd, new Object[]{"CRC", "RMR", aTextMotorWire, 'M', ItemList.Hull_IV, 'E', ItemList.Electric_Motor_IV, 'R', OrePrefixes.rotor.get(Materials.TungstenSteel), 'C', OrePrefixes.circuit.get(Materials.Elite), 'W', OrePrefixes.cableGt01.get(Materials.Platinum)});
 
 
         ItemList.Generator_Steam_Turbine_LV.set(new GT_MetaTileEntity_SteamTurbine(1120, "basicgenerator.steamturbine.tier.01", "Basic Steam Turbine", 1).getStackForm(1L));

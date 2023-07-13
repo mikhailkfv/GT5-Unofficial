@@ -622,7 +622,7 @@ public interface IGT_RecipeAdder {
      * Every Fluid also gets separate distillation recipes
      *
      * @param aInput1  must be != null
-     * @param aOutputs must be != null 1-5 Fluids
+     * @param aOutputs must be != null 1-11 Fluids
      * @param aOutput2 can be null
      */
     public boolean addUniversalDistillationRecipe(FluidStack aInput, FluidStack[] aOutputs, ItemStack aOutput2, int aDuration, int aEUt);
