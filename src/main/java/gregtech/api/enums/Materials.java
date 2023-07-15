@@ -415,6 +415,8 @@ public class Materials implements IColorModulationContainer, ISubTagContainer {
     public static Materials WoodGas = new MaterialBuilder(660, TextureSet.SET_FLUID, "Wood Gas").addCell().addGas().setRGB(222, 205, 135).setColor(Dyes.dyeBrown).setFuelType(MaterialBuilder.GAS).setFuelPower(24).constructMaterial();
     public static Materials WoodTar = new MaterialBuilder(662, TextureSet.SET_FLUID, "Wood Tar").addCell().addFluid().setRGB(40, 23, 11).setColor(Dyes.dyeBrown).constructMaterial();
     public static Materials WoodVinegar = new MaterialBuilder(661, TextureSet.SET_FLUID, "Wood Vinegar").addCell().addFluid().setRGB(212, 85, 0).setColor(Dyes.dyeBrown).constructMaterial();
+    //new items
+    public static Materials PetrolCoke = new Materials(693, TextureSet.SET_LIGNITE, 	1.0F, 0, 1, 1|4, 85, 80, 80, 0, "PetrolCoke", "Petroleum Coke", 0, 0, -1, 0, false, false, 1, 1, 1, Dyes.dyeGray, 1, Arrays.asList(new MaterialStack(Carbon, 2)), Arrays.asList(new TC_AspectStack(TC_Aspects.POTENTIA, 3), new TC_AspectStack(TC_Aspects.IGNIS, 3)));
 
     /**
      * TODO: This
@@ -540,6 +542,8 @@ public class Materials implements IColorModulationContainer, ISubTagContainer {
     public static Materials SulfuricKerosene = new Materials(744, TextureSet.SET_FLUID,	1.0F, 0, 0, 16, 0, 255, 255, 0, "SulfuricKerosene", "Sulfuric Kerosene", 0, 32, -1, 0, false, false, 1, 1, 1, Dyes.dyeBlue);
     public static Materials ResidualOil = new Materials(745, TextureSet.SET_FLUID,		1.0F, 0, 0, 16, 10, 10, 10, 0, "ResidualOil", "Residual Oil", 3, 48, -1, 0, false, false, 1, 1, 1, Dyes.dyeBlack);
     public static Materials SulfuricResid = new Materials(746, TextureSet.SET_FLUID,	1.0F, 0, 0, 16, 10, 10, 10, 0, "SulfuricResid", "Sulfuric Residual Oil", 3, 32, -1, 0, false, false, 1, 1, 1, Dyes.dyeBlack);
+    public static Materials CrackedResid = new Materials(749, TextureSet.SET_FLUID,		1.0F, 0, 0, 16, 10, 10, 10, 0, "CrackedResid", "Cracked Residual Oil", 3, 56, -1, 0, false, false, 1, 1, 1, Dyes.dyeBlack);
+
     
     public static Materials Chlorobenzene = new MaterialBuilder(605, TextureSet.SET_FLUID, "Chlorobenzene").addCell().addFluid().setRGB(0, 50, 65).setColor(Dyes.dyeGray).setMaterialList(new MaterialStack(Carbon, 6), new MaterialStack(Hydrogen, 5), new MaterialStack(Chlorine, 1)).addElectrolyzerRecipe().constructMaterial();
     public static Materials DilutedHydrochloricAcid = new MaterialBuilder(606, TextureSet.SET_FLUID, "Diluted Hydrochloric Acid").setName("DilutedHydrochloricAcid_GT5U").addCell().addFluid().setRGB(153, 167, 163).setColor(Dyes.dyeLightGray).setMaterialList(new MaterialStack(Hydrogen, 1), new MaterialStack(Chlorine, 1)).constructMaterial();
@@ -1241,6 +1245,7 @@ public class Materials implements IColorModulationContainer, ISubTagContainer {
         Coal.add(SubTag.FLAMMABLE, SubTag.NO_SMELTING, SubTag.NO_SMASHING, SubTag.MORTAR_GRINDABLE);
         Charcoal.add(SubTag.FLAMMABLE, SubTag.NO_SMELTING, SubTag.NO_SMASHING, SubTag.MORTAR_GRINDABLE);
         Lignite.add(SubTag.FLAMMABLE, SubTag.NO_SMELTING, SubTag.NO_SMASHING, SubTag.MORTAR_GRINDABLE);
+        PetrolCoke.add(SubTag.FLAMMABLE, SubTag.NO_SMELTING, SubTag.NO_SMASHING, SubTag.MORTAR_GRINDABLE);
 
         Rubber.add(SubTag.FLAMMABLE, SubTag.NO_SMASHING, SubTag.BOUNCY, SubTag.STRETCHY);
         StyreneButadieneRubber.add(SubTag.FLAMMABLE, SubTag.NO_SMASHING, SubTag.BOUNCY, SubTag.STRETCHY);

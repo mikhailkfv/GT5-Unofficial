@@ -761,8 +761,8 @@ public class GT_MachineRecipeLoader implements Runnable {
         //new recipes
         GT_Values.RA.addChemicalRecipe(GT_OreDictUnificator.get(OrePrefixes.cell, Materials.SulfuricKerosene, 12L),   GT_Utility.getIntegratedCircuit(4), Materials.Hydrogen.getGas(1000),             Materials.HydricSulfide.getGas(1000), GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Kerosene, 12L), 160);
         GT_Values.RA.addChemicalRecipe(GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Hydrogen, 1L),           GT_Utility.getIntegratedCircuit(4), Materials.SulfuricKerosene.getFluid(12000),   Materials.Kerosene.getFluid(12000),    GT_OreDictUnificator.get(OrePrefixes.cell, Materials.HydricSulfide, 1L), 160);
-        GT_Values.RA.addChemicalRecipe(GT_OreDictUnificator.get(OrePrefixes.cell, Materials.SulfuricResid, 8L),  GT_Utility.getIntegratedCircuit(4), Materials.Hydrogen.getGas(1000),             Materials.HydricSulfide.getGas(1000), GT_OreDictUnificator.get(OrePrefixes.cell, Materials.ResidualOil, 8L), 160);
-        GT_Values.RA.addChemicalRecipe(GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Hydrogen, 1L),           GT_Utility.getIntegratedCircuit(4), Materials.SulfuricResid.getFluid(8000),  Materials.ResidualOil.getFluid(8000),   GT_OreDictUnificator.get(OrePrefixes.cell, Materials.HydricSulfide, 1L), 160);
+        GT_Values.RA.addChemicalRecipe(GT_OreDictUnificator.get(OrePrefixes.cell, Materials.SulfuricResid, 4L),  GT_Utility.getIntegratedCircuit(4), Materials.Hydrogen.getGas(1000),             Materials.HydricSulfide.getGas(1000), GT_OreDictUnificator.get(OrePrefixes.cell, Materials.ResidualOil, 4L), 160);
+        GT_Values.RA.addChemicalRecipe(GT_OreDictUnificator.get(OrePrefixes.cell, Materials.Hydrogen, 1L),           GT_Utility.getIntegratedCircuit(4), Materials.SulfuricResid.getFluid(4000),  Materials.ResidualOil.getFluid(4000),   GT_OreDictUnificator.get(OrePrefixes.cell, Materials.HydricSulfide, 1L), 160);
 
 
 
@@ -3301,6 +3301,9 @@ public class GT_MachineRecipeLoader implements Runnable {
         GT_Values.RA.addChemicalRecipe(Materials.Calcite.getDust(5),   GT_Utility.getIntegratedCircuit(1), GT_Values.NF,                         Materials.CarbonDioxide.getGas(3000), Materials.Quicklime.getDust(2), 240);
         GT_Values.RA.addChemicalRecipe(Materials.Magnesia.getDust(2),  GT_Values.NI,                       Materials.CarbonDioxide.getGas(3000), GT_Values.NF,                         Materials.Magnesite.getDust(5), 80);
         GT_Values.RA.addChemicalRecipe(Materials.Magnesite.getDust(5), GT_Utility.getIntegratedCircuit(1), GT_Values.NF,                         Materials.CarbonDioxide.getGas(3000), Materials.Magnesia.getDust(2), 240);
+        
+        //new recipes
+        GT_Values.RA.addPyrolyseRecipe(GT_Values.NI, Materials.ResidualOil.getFluid(1000), 1, Materials.PetrolCoke.getGems(1),   Materials.CrackedResid.getFluid(500), 600, 64);
 
     }
 
@@ -3466,6 +3469,12 @@ public class GT_MachineRecipeLoader implements Runnable {
         
         //JP-8
         GT_Values.RA.addMixerRecipe(Materials.JetFuel.getCells(6), Materials.Naphtha.getCells(2), Materials.Ethane.getCells(1), GT_Values.NI, GT_Values.NF, GT_Values.NF, Materials.Jet8.getCells(9), 200, 512);
+        
+        //Cracked Resid byproducts
+        GT_Values.RA.addUniversalDistillationRecipe(Materials.CrackedResid.getFluid(100),
+                new FluidStack[]{Materials.HeavyFuel.getFluid(60), Materials.LightFuel.getFluid(30), Materials.Naphtha.getFluid(10), Materials.Butane.getGas(3), Materials.Gas.getGas(2)},
+                Materials.Bitumen.getGems(1), 240, 120);
+
     }
 
     public void addPotionRecipes(String aName,ItemStack aItem){

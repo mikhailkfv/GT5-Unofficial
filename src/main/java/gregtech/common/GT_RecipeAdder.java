@@ -966,7 +966,7 @@ public class GT_RecipeAdder
 
     @Override
     public boolean addPyrolyseRecipe(ItemStack aInput, FluidStack aFluidInput, int intCircuit, ItemStack aOutput, FluidStack aFluidOutput, int aDuration, int aEUt) {
-        if (aInput == null) {
+        if (aInput == null && aFluidInput == null) {
             return false;
         }
         if ((aDuration = GregTech_API.sRecipeFile.get("pyrolyse", aInput, aDuration)) <= 0) {
