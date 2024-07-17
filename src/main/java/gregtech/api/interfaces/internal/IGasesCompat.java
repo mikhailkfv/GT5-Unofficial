@@ -2,7 +2,7 @@ package gregtech.api.interfaces.internal;
 
 import net.minecraftforge.fluids.Fluid;
 
-public interface GasesCompat {
+public interface IGasesCompat {
 
 	public boolean registerGregGas(Fluid gas);
 	

@@ -11,6 +11,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 
 import java.util.ArrayList;
+import java.lang.Math;
 
 import static gregtech.api.enums.GT_Values.VN;
 import static gregtech.common.GT_UndergroundOil.undergroundOil;
@@ -114,9 +115,9 @@ public abstract class GT_MetaTileEntity_OilDrillBase extends GT_MetaTileEntity_D
         if (mOilFieldChunks.isEmpty()) {
             Chunk tChunk = getBaseMetaTileEntity().getWorld().getChunkFromBlockCoords(getBaseMetaTileEntity().getXCoord(), getBaseMetaTileEntity().getZCoord());
             int range = getRangeInChunks();
-            int xChunk = (tChunk.xPosition / range) * range - ((tChunk.xPosition < 0 && tChunk.xPosition % range != 0) ? range : 0);
-            int zChunk = (tChunk.zPosition / range) * range - ((tChunk.zPosition < 0 && tChunk.zPosition % range != 0) ? range : 0);
-
+            int xChunk = Math.floorDiv(tChunk.xPosition,range) * range; //Java was written by idiots.  For negative values, / returns rounded towards zero. Fucking morons.
+            int zChunk = Math.floorDiv(tChunk.zPosition,range) * range; //^ Actually, this is the behaviour of C intentionally (and Ritchie was no 'idiot') but I'm leaving this here to credit the guy who actually wrote the fix.
+            
             for (int i = 0; i < range; i++) {
                 for (int j = 0; j < range; j++) {
                     tChunk = getBaseMetaTileEntity().getWorld().getChunkFromChunkCoords(xChunk + i, zChunk + j);
@@ -127,18 +128,21 @@ public abstract class GT_MetaTileEntity_OilDrillBase extends GT_MetaTileEntity_D
                 }
             }
         }
-        if (mOilFieldChunks.isEmpty()) return false;
-        return true;
+        return !mOilFieldChunks.isEmpty();
     }
 
     private FluidStack pumpOil(float speed){
         if (mOilId <= 0) return null;
         FluidStack tFluid, tOil;
         tOil = new FluidStack(FluidRegistry.getFluid(mOilId), 0);
+        ArrayList<Chunk> emptyChunks = new ArrayList<Chunk>();
         for (Chunk tChunk : mOilFieldChunks) {
         	tFluid = undergroundOil(tChunk, speed);
-            if (tFluid == null) mOilFieldChunks.remove(tChunk);
+            if (tFluid == null || tFluid.amount<1) emptyChunks.add(tChunk);
             if (tOil.isFluidEqual(tFluid)) tOil.amount += tFluid.amount;
+        }
+        for( Chunk tChunk : emptyChunks) {
+            mOilFieldChunks.remove( tChunk );
         }
         return tOil.amount == 0 ? null : tOil;
     }

@@ -103,6 +103,40 @@ public class GT_MetaTileEntity_PyrolyseOven extends GT_MetaTileEntity_MultiBlock
                 }
             }
         }
+        //TODO: Find out how to make this properly - until then, using an input hatch with the circuit is enough to get fluid-only recipes going.
+        /*if(tInputList.isEmpty() && !tFluidInputs.isEmpty()){
+            byte tTier = (byte) Math.max(1, GT_Utility.getTier(getMaxInputVoltage()));
+        	GT_Recipe tRecipe = GT_Recipe.GT_Recipe_Map.sPyrolyseRecipes.findRecipe(getBaseMetaTileEntity(), false, gregtech.api.enums.GT_Values.V[tTier], new FluidStack[] {tFluidInputs.get(0)}, (ItemStack[]) null);
+        	if (tRecipe != null) {
+                if (tRecipe.isRecipeInputEqual(true, new FluidStack[]{tFluidInputs.get(0)}, (ItemStack[]) null)) {
+                    this.mEfficiency = (10000 - (getIdealStatus() - getRepairStatus()) * 1000);
+                    this.mEfficiencyIncrease = 10000;
+
+                    this.mEUt = tRecipe.mEUt;
+                    if (tRecipe.mEUt <= 16) {
+                        this.mEUt = (tRecipe.mEUt * (1 << tTier - 1) * (1 << tTier - 1));
+                        this.mMaxProgresstime = (tRecipe.mDuration / (1 << tTier - 1));
+                    } else {
+                        this.mEUt = tRecipe.mEUt;
+                        this.mMaxProgresstime = tRecipe.mDuration;
+                        while (this.mEUt <= gregtech.api.enums.GT_Values.V[(tTier - 1)]) {
+                            this.mEUt *= 4;
+                            this.mMaxProgresstime /= 2;
+                        }
+                    }
+                    if (this.mEUt > 0) {
+                        this.mEUt = (-this.mEUt);
+                    }
+                    this.mMaxProgresstime = mMaxProgresstime * 2 / (1 + coilMetaID);
+                    this.mMaxProgresstime = Math.max(1, this.mMaxProgresstime);
+                    if (tRecipe.mOutputs.length > 0) this.mOutputItems = new ItemStack[]{tRecipe.getOutput(0)};
+                    if (tRecipe.mFluidOutputs.length > 0)
+                        this.mOutputFluids = new FluidStack[]{tRecipe.getFluidOutput(0)};
+                    updateSlots();
+                    return true;
+                }
+            }
+        }*/
         return false;
     }
 

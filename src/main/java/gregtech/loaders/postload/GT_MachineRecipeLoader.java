@@ -2806,7 +2806,7 @@ public class GT_MachineRecipeLoader implements Runnable {
         GT_Values.RA.addChemicalRecipeForBasicMachineOnly(Materials.Ethylene.getCells(5), Materials.Chlorine.getCells(1),     GT_Values.NF,                    GT_Values.NF,                         Materials.VinylChloride.getCells(6), GT_Values.NI, 240, 30);
 
         //GT_Values.RA.addChemicalRecipe(Materials.LightFuel.getCells(1),  GT_Values.NI, Materials.NitricAcid.getFluid(250),  Materials.NitroFuel.getFluid(1000),  Materials.Empty.getCells(1), 80,  8);
-        GT_Values.RA.addChemicalRecipe(Materials.Fuel.getCells(1),       GT_Values.NI, Materials.NitricAcid.getFluid(250),  Materials.NitroFuel.getFluid(1000),  Materials.Empty.getCells(2), 80,  8);
+        GT_Values.RA.addChemicalRecipe(Materials.Fuel.getCells(1),       GT_Values.NI, Materials.NitricAcid.getFluid(250),  Materials.NitroFuel.getFluid(1000),  Materials.Empty.getCells(1), 80,  8);
         GT_Values.RA.addChemicalRecipe(Materials.BioDiesel.getCells(4),  GT_Values.NI, Materials.NitricAcid.getFluid(1000), Materials.NitroFuel.getFluid(3000),  Materials.Empty.getCells(4), 320, 8);
         //GT_Values.RA.addChemicalRecipe(Materials.NitricAcid.getCells(1), GT_Values.NI, Materials.LightFuel.getFluid(4000),  Materials.NitroFuel.getFluid(4000),  Materials.Empty.getCells(1), 320, 8);
         GT_Values.RA.addChemicalRecipe(Materials.NitricAcid.getCells(1), GT_Values.NI, Materials.Fuel.getFluid(4000),       Materials.NitroFuel.getFluid(4000),  Materials.Empty.getCells(1), 320, 8);
@@ -3472,7 +3472,7 @@ public class GT_MachineRecipeLoader implements Runnable {
         
         //Cracked Resid byproducts
         GT_Values.RA.addUniversalDistillationRecipe(Materials.CrackedResid.getFluid(100),
-                new FluidStack[]{Materials.HeavyFuel.getFluid(60), Materials.LightFuel.getFluid(30), Materials.Naphtha.getFluid(10), Materials.Butane.getGas(3), Materials.Gas.getGas(2)},
+                new FluidStack[]{Materials.HeavyFuel.getFluid(80), Materials.LightFuel.getFluid(40), Materials.Naphtha.getFluid(20), Materials.Butane.getGas(10), Materials.Gas.getGas(20), Materials.Methane.getGas(30)},
                 Materials.Bitumen.getGems(1), 240, 120);
 
     }

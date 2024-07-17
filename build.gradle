@@ -79,12 +79,16 @@ configurations {
 
 repositories {
 	maven {
+		name = "chickenbones"
+		url = "http://chickenbones.net/maven/"
+	}
+	maven {
 		name = "gt"
 		url = "https://gregtech.overminddl1.com/"
 	}
 	maven {
 		name = "ic2"
-		url = "https://maven.ic2.player.to/"
+		url = "https://maven2.ic2.player.to/"
 	}
 	maven {
 		name = "k4u"
@@ -125,7 +129,9 @@ dependencies {
 	compileOnly "com.shedar.IC2NuclearControl:IC2NuclearControl:2.4.3a:dev"
 
 	compileOnly "pneumaticCraft:PneumaticCraft-1.7.10:1.12.7-152:userdev"
-    
+
+	compileOnly "glenn:gasesFramework:1.7.10-1.2.4:dev"
+	compileOnly "glenn:gases:1.7.10-1.6.7:dev"
 }
 
 processResources
